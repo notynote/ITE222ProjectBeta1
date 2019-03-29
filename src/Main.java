@@ -22,37 +22,66 @@ public class Main {
             System.out.println("(This is a Alpha Version)");
 
             do { //check for correct input
-                System.out.println("1. Player vs Player\n2. Character Creator\n3. Exit the Game");
+                System.out.println("1. Arcade Mode\n2. Player vs CPU\n3. Player vs Player\n4. Character Creator\n5. Exit the Game");
                 usermenu = console.next();
-            } while (!usermenu.equalsIgnoreCase("1") && !usermenu.equalsIgnoreCase("2") && !usermenu.equalsIgnoreCase("3"));
+            } while (!usermenu.equalsIgnoreCase("1") && !usermenu.equalsIgnoreCase("2") && !usermenu.equalsIgnoreCase("3") && !usermenu.equalsIgnoreCase("4") && !usermenu.equalsIgnoreCase("5"));
+
+            //declare player
+            Character player1,player2;
+            String player1name,player2name;
+
+            //declare battle
+            Battle arcade;
 
             switch (usermenu) {
                 case "1":
-
-                    //variable
-                    String player1name, player2name;
-
-                    //Create 2 character
-                    System.out.println("What the name of Player 1 Character?");
+                    //Create 1 character
+                    System.out.println("What the name of Your Character?");
                     player1name = console.next();
-                    Character player1 = new Character(player1name);
+                    player1 = new Character(player1name);
 
-                    System.out.println("What the name of Player 2 Character?");
-                    player2name = console.next();
-                    Character player2 = new Character(player2name);
-
-                    System.out.println("Character 1:\n" + player1 + "\n\n*****VS*****\n\nCharacter 2:\n" + player2);
+                    System.out.println("Your Character:\n" + player1);
                     System.out.println("==================");
-
-                    Battle Testbattle = new Battle(player1, player2);
+                    arcade = new Battle(player1, "1");
 
                     endprogram = 0;
                     break;
                 case "2":
-                    charcreator();
+
+                    //Create 1 character
+                    System.out.println("What the name of Your Character?");
+                    player1name = console.next();
+                    player1 = new Character(player1name);
+
+                    System.out.println("Your Character:\n" + player1);
+                    System.out.println("==================");
+                    arcade = new Battle(player1, "2");
+
                     endprogram = 0;
                     break;
                 case "3":
+
+                    //Create 2 character
+                    System.out.println("What the name of Player 1 Character?");
+                    player1name = console.next();
+                    player1 = new Character(player1name);
+
+                    System.out.println("What the name of Player 2 Character?");
+                    player2name = console.next();
+                    player2 = new Character(player2name);
+
+                    System.out.println("Character 1:\n" + player1 + "\n\n*****VS*****\n\nCharacter 2:\n" + player2);
+                    System.out.println("==================");
+
+                    Battle PVPbattle = new Battle(player1, player2);
+
+                    endprogram = 0;
+                    break;
+                case "4":
+                    charcreator();
+                    endprogram = 0;
+                    break;
+                case "5":
                     System.out.println("Thank you for playing this game\nBye Bye!!");
                     endprogram = 1;
                     break;
