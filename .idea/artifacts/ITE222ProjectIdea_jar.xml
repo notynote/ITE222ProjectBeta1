@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ITE222ProjectIdea:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ITE222ProjectIdea_jar</output-path>
+    <root id="archive" name="ITE222ProjectIdea.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="ITE222ProjectIdea" />
+    </root>
+  </artifact>
+</component>
