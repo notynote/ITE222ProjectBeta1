@@ -1,0 +1,266 @@
+Index: src/Battle.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Battle.java	(date 1553899749000)
++++ src/Battle.java	(date 1555913707652)
+@@ -157,20 +157,24 @@
+       private int FightingPvP(int Starter){
+         //variable
+         //int hasWinner = 0;
+-          String modeselect = "";
++          int modeselect = 0;
+ 
+           //ask for the mode to play
+           do {
+-              System.out.println("==========\nPlease Choose your game mode. . .\n1. Normal Mode\n2. Attack Only Mode\n3. Auto Mode");
+-              modeselect = console.next();
+-          } while (!modeselect.equalsIgnoreCase("1") && !modeselect.equalsIgnoreCase("2") && !modeselect.equalsIgnoreCase("3"));
++              try {
++                  System.out.println("==========\nPlease Choose your game mode. . .\n1. Normal Mode\n2. Attack Only Mode\n3. Auto Mode");
++                  modeselect = Integer.parseInt(console.next());
++              } catch (Exception ignore) {
++                  System.out.println("======Error======\nPlease enter the correct input\n=================");
++              }
++          } while (modeselect != 1 && modeselect != 2 && modeselect != 3);
+ 
+           if (Starter == 1){ //player1 start first
+             do {
+                 //player1 turn
+-                if (modeselect.equalsIgnoreCase("1")) {
++                if (modeselect != 1) {
+                     fightturn(1, 0);
+-                } else if (modeselect.equalsIgnoreCase("2")){
++                } else if (modeselect != 2){
+                     AttackOnly(1,0);
+                 } else {
+                     Automode(1,0);
+@@ -181,9 +185,9 @@
+                 }
+ 
+                 //player2 turn
+-                if (modeselect.equalsIgnoreCase("1")) {
++                if (modeselect != 1) {
+                     fightturn(2, 0);
+-                } else if (modeselect.equalsIgnoreCase("2")){
++                } else if (modeselect != 2){
+                     AttackOnly(2,0);
+                 } else {
+                     Automode(2,0);
+@@ -198,9 +202,9 @@
+ 
+             do {
+                 //player2 turn
+-                if (modeselect.equalsIgnoreCase("1")) {
++                if (modeselect != 1) {
+                     fightturn(2, 0);
+-                } else if (modeselect.equalsIgnoreCase("2")){
++                } else if (modeselect != 2){
+                     AttackOnly(2,0);
+                 } else {
+                     Automode(2,0);
+@@ -210,9 +214,9 @@
+                 }
+ 
+                 //player1 turn
+-                if (modeselect.equalsIgnoreCase("1")) {
++                if (modeselect != 1) {
+                     fightturn(1, 0);
+-                } else if (modeselect.equalsIgnoreCase("2")){
++                } else if (modeselect != 2){
+                     AttackOnly(1,0);
+                 } else {
+                     Automode(1,0);
+@@ -226,9 +230,10 @@
+ 
+     }
+ 
++
+     private void fightturn(int player,int cpu){
+         //variable
+-        String skillchoice,defendchoice;
++        int skillchoice = 0,defendchoice = 0;
+         String attackerskill = "";
+         String defenderskill = "";
+         int attackerstatus = 0;
+@@ -246,13 +251,16 @@
+                 attacker = player2;
+                 defender = player1;
+             }
+-
+-            System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+-            skillchoice = console.next();
+-        } while (!skillchoice.equalsIgnoreCase("1") && !skillchoice.equalsIgnoreCase("2"));
++            try {
++                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
++                skillchoice = Integer.parseInt(console.next());
++            } catch (Exception ignore){
++
++            }
++        } while (skillchoice != 1 && skillchoice != 2);
+ 
+         switch (skillchoice) {
+-            case "1":
++            case 1:
+                 attackerskill = attacker.getOffend();
+                     switch (attacker.getCharclass()) {
+                         case "Warrior":
+@@ -270,7 +278,7 @@
+                     }
+                     break;
+ 
+-            case "2":
++            case 2:
+                     attackerskill = attacker.getNoffend();
+                     attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
+                     break;
+@@ -281,16 +289,20 @@
+ 
+         //defender select skill
+         do {
+-            System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
+-            defendchoice = console.next();
+-        } while (!defendchoice.equalsIgnoreCase("1") && !defendchoice.equalsIgnoreCase("2"));
++            try {
++                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
++                defendchoice = Integer.parseInt(console.next());
++            } catch (Exception ignore){
++
++            }
++        } while (defendchoice != 1 && defendchoice != 2);
+ 
+         switch (defendchoice) {
+-            case "1":
++            case 1:
+                 defenderskill = defender.getDefend();
+                 break;
+ 
+-            case "2":
++            case 2:
+                 defenderskill = defender.getNdefend();
+                 break;
+ 
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Main.java	(date 1553899749000)
++++ src/Main.java	(date 1555912429175)
+@@ -1,4 +1,5 @@
+ //ITE222 Project (Turn Based Fighting Game) Draft by Pathompong Phongsaporamut
++//test git
+ 
+ import java.util.Scanner;
+ 
+@@ -9,22 +10,28 @@
+ 
+     //global variable
+ 
+-    public static void main(String[] args) {
++    public static void main(String[] args) throws InterruptedException {
+ 
+         //menu variable
+-        String usermenu = "";
++        int usermenu = 0;
+         int endprogram;
+ 
+         //do while to loop the program
+         do {
+             //Main Menu
+             System.out.println("Welcome to ITE222 Project Draft");
++            //ke code wait
++            Thread.sleep(1000);
+             System.out.println("(This is a Alpha Version)");
+ 
+             do { //check for correct input
+-                System.out.println("1. Arcade Mode\n2. Player vs CPU\n3. Player vs Player\n4. Character Creator\n5. Exit the Game");
+-                usermenu = console.next();
+-            } while (!usermenu.equalsIgnoreCase("1") && !usermenu.equalsIgnoreCase("2") && !usermenu.equalsIgnoreCase("3") && !usermenu.equalsIgnoreCase("4") && !usermenu.equalsIgnoreCase("5"));
++                try {
++                    System.out.println("1. Arcade Mode\n2. Player vs CPU\n3. Player vs Player\n4. Character Creator\n5. Exit the Game");
++                    usermenu = Integer.parseInt(console.next());
++                } catch (Exception ignore) {
++                    System.out.println("======Error======\nPlease enter the correct input\n=================");
++                }
++            } while (usermenu != 1 && usermenu != 2 && usermenu != 3 && usermenu != 4 && usermenu != 5);
+ 
+             //declare player
+             Character player1,player2;
+@@ -34,7 +41,7 @@
+             Battle arcade;
+ 
+             switch (usermenu) {
+-                case "1":
++                case 1:
+                     //Create 1 character
+                     System.out.println("What the name of Your Character?");
+                     player1name = console.next();
+@@ -46,7 +53,7 @@
+ 
+                     endprogram = 0;
+                     break;
+-                case "2":
++                case 2:
+ 
+                     //Create 1 character
+                     System.out.println("What the name of Your Character?");
+@@ -59,7 +66,7 @@
+ 
+                     endprogram = 0;
+                     break;
+-                case "3":
++                case 3:
+ 
+                     //Create 2 character
+                     System.out.println("What the name of Player 1 Character?");
+@@ -77,11 +84,11 @@
+ 
+                     endprogram = 0;
+                     break;
+-                case "4":
++                case 4:
+                     charcreator();
+                     endprogram = 0;
+                     break;
+-                case "5":
++                case 5:
+                     System.out.println("Thank you for playing this game\nBye Bye!!");
+                     endprogram = 1;
+                     break;
+Index: src/Character.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Character.java	(date 1553899749000)
++++ src/Character.java	(date 1554103228172)
+@@ -3,7 +3,6 @@
+ import java.util.Scanner;
+ 
+ public class Character {
+-
+     //global scanner
+     static Scanner console = new Scanner(System.in);
+ 
+Index: src/CPU.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/CPU.java	(date 1553899749000)
++++ src/CPU.java	(date 1554177707999)
+@@ -12,6 +12,12 @@
+ 
+     }
+ 
++    //Choose CPU Diffecaulty Range
++    public CPU(int min,int max){
++        super(getRandomNumberInRange(min,max));
++
++    }
++
+     public CPU(int level){
+         super(level);
+     }
