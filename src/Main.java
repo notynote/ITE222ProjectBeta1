@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
 
         //menu variable
-        String usermenu = "";
+        int usermenu = 0;
         int endprogram;
 
         //do while to loop the program
@@ -22,9 +22,13 @@ public class Main {
             System.out.println("(This is a Alpha Version)");
 
             do { //check for correct input
-                System.out.println("1. Arcade Mode\n2. Player vs CPU\n3. Player vs Player\n4. Character Creator\n5. Exit the Game");
-                usermenu = console.next();
-            } while (!usermenu.equalsIgnoreCase("1") && !usermenu.equalsIgnoreCase("2") && !usermenu.equalsIgnoreCase("3") && !usermenu.equalsIgnoreCase("4") && !usermenu.equalsIgnoreCase("5"));
+                try {
+                    System.out.println("1. Arcade Mode\n2. Player vs CPU\n3. Player vs Player\n4. Character Creator\n5. Exit the Game");
+                    usermenu = Integer.parseInt(console.next());
+                } catch (Exception ignore){
+                    System.out.println("=====Error=====\nPleasr input the correct input\n===============");
+                }
+            } while (usermenu !=1 && usermenu !=2 && usermenu !=3 && usermenu !=4 && usermenu !=5);
 
             //declare player
             Character player1,player2;
@@ -34,7 +38,7 @@ public class Main {
             Battle arcade;
 
             switch (usermenu) {
-                case "1":
+                case 1:
                     //Create 1 character
                     System.out.println("What the name of Your Character?");
                     player1name = console.next();
@@ -46,7 +50,7 @@ public class Main {
 
                     endprogram = 0;
                     break;
-                case "2":
+                case 2:
 
                     //Create 1 character
                     System.out.println("What the name of Your Character?");
@@ -59,7 +63,7 @@ public class Main {
 
                     endprogram = 0;
                     break;
-                case "3":
+                case 3:
 
                     //Create 2 character
                     System.out.println("What the name of Player 1 Character?");
@@ -77,11 +81,11 @@ public class Main {
 
                     endprogram = 0;
                     break;
-                case "4":
+                case 4:
                     charcreator();
                     endprogram = 0;
                     break;
-                case "5":
+                case 5:
                     System.out.println("Thank you for playing this game\nBye Bye!!");
                     endprogram = 1;
                     break;
