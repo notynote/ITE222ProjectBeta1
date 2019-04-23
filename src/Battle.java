@@ -81,25 +81,44 @@ class Battle {
             }
             
         } else {
-            //create random ai
-            this.battleai = new CPU();
-            System.out.println("You are facing " + battleai.getCharname() + "\nDetail:\n" + battleai + "\n-=-=-=-=-=-=-=-=-");
-            Thread.sleep(1000);
 
-            //random who go first
-            starter = getStarter();
-            if (starter == 1){
-                //player go first
-                whowin = FightingPVC(1);
-                Annoucer(whowin);
-            } else {
-                //CPU go first
-                whowin = FightingPVC(2);
-                Annoucer(whowin);
+            int cpudiffselect = 0;
+            //Ask what difficulty user want
+            do {
+                try {
+                    System.out.println("==========\nPlease Choose CPU Difficulty. . .\n0. Random \n1. Noob CPU\n2. Extremely Easy CPU\n3. Very Easy CPU\n4. Easy CPU\n5. Medium CPU" +
+                            "\n6. Hard CPU\n7. Insane CPU\n8. Nightmare CPU\n9. Impossible CPU\n10. The End CPU");
+                    cpudiffselect = Integer.parseInt(console.next());
+                } catch (Exception ignore){
+
+                }
             }
+            while (cpudiffselect!=0 && cpudiffselect!=1 && cpudiffselect!=2 && cpudiffselect!=3 && cpudiffselect!=4 && cpudiffselect!=5 && cpudiffselect!=6
+                    && cpudiffselect!=7 && cpudiffselect!=8 && cpudiffselect!=9 && cpudiffselect!=10);
+
+            if (cpudiffselect==0) {
+                //create random ai
+                this.battleai = new CPU();
+            } else {
+                //create selected ai
+                this.battleai = new CPU(cpudiffselect);
+
+            }
+
+                System.out.println("You are facing " + battleai.getCharname() + "\nDetail:\n" + battleai + "\n-=-=-=-=-=-=-=-=-");
+                Thread.sleep(1000);
+                //random who go first
+                starter = getStarter();
+                if (starter == 1) {
+                    //player go first
+                    whowin = FightingPVC(1);
+                    Annoucer(whowin);
+                } else {
+                    //CPU go first
+                    whowin = FightingPVC(2);
+                    Annoucer(whowin);
+                }
         }
-
-
 
     }
 
