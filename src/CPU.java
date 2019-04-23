@@ -14,4 +14,5 @@ public class CPU extends Character {
     public CPU(int level){
         super(level);
     }
+
 }
