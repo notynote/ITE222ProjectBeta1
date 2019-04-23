@@ -9,7 +9,7 @@ public class Main {
 
     //global variable
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         //menu variable
         int usermenu = 0;
@@ -20,6 +20,7 @@ public class Main {
             //Main Menu
             System.out.println("Welcome to ITE222 Project Draft");
             System.out.println("(This is a Alpha Version)");
+            Thread.sleep(500);
 
             do { //check for correct input
                 try {
@@ -40,25 +41,22 @@ public class Main {
             switch (usermenu) {
                 case 1:
                     //Create 1 character
-                    System.out.println("What the name of Your Character?");
-                    player1name = console.next();
-                    player1 = new Character(player1name);
+                    player1 = makeChar();
 
                     System.out.println("Your Character:\n" + player1);
                     System.out.println("==================");
+                    Thread.sleep(500);
                     arcade = new Battle(player1, "1");
 
                     endprogram = 0;
                     break;
                 case 2:
-
                     //Create 1 character
-                    System.out.println("What the name of Your Character?");
-                    player1name = console.next();
-                    player1 = new Character(player1name);
+                    player1 = makeChar();
 
                     System.out.println("Your Character:\n" + player1);
                     System.out.println("==================");
+                    Thread.sleep(500);
                     arcade = new Battle(player1, "2");
 
                     endprogram = 0;
@@ -66,13 +64,13 @@ public class Main {
                 case 3:
 
                     //Create 2 character
-                    System.out.println("What the name of Player 1 Character?");
-                    player1name = console.next();
-                    player1 = new Character(player1name);
+                    System.out.println("=====Player 1=====");
+                    player1 = makeChar();
+                    Thread.sleep(500);
 
-                    System.out.println("What the name of Player 2 Character?");
-                    player2name = console.next();
-                    player2 = new Character(player2name);
+                    System.out.println("=====Player 2=====");
+                    player2 = makeChar();
+                    Thread.sleep(500);
 
                     System.out.println("Character 1:\n" + player1 + "\n\n*****VS*****\n\nCharacter 2:\n" + player2);
                     System.out.println("==================");
@@ -99,30 +97,39 @@ public class Main {
     }
 
     //create character method
-    public static void charcreator(){
+    private static void charcreator() throws InterruptedException {
 
         //variable
-        String charname;
-        String again = "";
+        String again;
 
         do {
-            System.out.println("What the name of your Character?");
-            charname = console.next();
-            Character testchar = new Character(charname);
+            Character testchar = makeChar();
 
             System.out.println("Please Wait . . . .");
             System.out.println("We are generating your character");
+            Thread.sleep(500);
             System.out.println(".10%");
+            Thread.sleep(50);
             System.out.println("..20%");
+            Thread.sleep(50);
             System.out.println("...30%");
+            Thread.sleep(50);
             System.out.println("....40%");
+            Thread.sleep(50);
             System.out.println(".....50%");
+            Thread.sleep(50);
             System.out.println("......60%");
+            Thread.sleep(50);
             System.out.println(".......70%");
+            Thread.sleep(50);
             System.out.println("........80%");
+            Thread.sleep(50);
             System.out.println(".........90%");
+            Thread.sleep(50);
             System.out.println("DONE!!");
+            Thread.sleep(50);
             System.out.println("====================\n" + testchar + "\n====================");
+            Thread.sleep(500);
             do {
                 System.out.println("Do you want to try another character? (Y/N)");
                 again = console.next();
@@ -131,12 +138,13 @@ public class Main {
         } while (again.equalsIgnoreCase("y"));
     }
 
-    //Battle method
-    public static void Battle(Character player1, Character Player2){
+    //define Character name method
+    private static Character makeChar(){
 
-
-
-
+        System.out.println("What the name of Your Character?");
+        String charname = console.next();
+        return new Character(charname);
 
     }
+
 }

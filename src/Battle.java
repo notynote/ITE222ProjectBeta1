@@ -3,11 +3,20 @@ import java.util.Scanner;
 
 class Battle {
 
-    //variable
+    //global variable
     private Character player1;
     private Character player2;
-    private CPU battleai;
+    private CPU battleai = null;
     private Random r = new Random();
+
+    //Battle variable
+    int skillchoice = 0,defendchoice = 0;
+    String attackerskill = "";
+    String defenderskill = "";
+    int attackerstatus = 0;
+    int defenderstatus = 0;
+    int finaldmg;
+    Character attacker = null,defender = null;
 
     //Scanner
     private Scanner console = new Scanner(System.in);
@@ -170,11 +179,11 @@ class Battle {
             do {
                 //player1 turn
                 if (modeselect == 1) {
-                    fightturn(1, 0);
+                    fightturn(1);
                 } else if (modeselect == 2){
-                    AttackOnly(1,0);
+                    AttackOnly(1);
                 } else {
-                    Automode(1,0);
+                    Automode(1);
                 }
                 //if hp fall below + equal to 0 then attacker = winner then return winner and stop the fight
                 if (player2.hp <= 0){
@@ -183,11 +192,11 @@ class Battle {
 
                 //player2 turn
                 if (modeselect == 1) {
-                    fightturn(2, 0);
+                    fightturn(2);
                 } else if (modeselect == 2){
-                    AttackOnly(2,0);
+                    AttackOnly(2);
                 } else {
-                    Automode(2,0);
+                    Automode(2);
                 }
                 if (player1.hp <= 0){
                     return 2;
@@ -200,11 +209,11 @@ class Battle {
             do {
                 //player2 turn
                 if (modeselect == 1) {
-                    fightturn(2, 0);
+                    fightturn(2);
                 } else if (modeselect == 2){
-                    AttackOnly(2,0);
+                    AttackOnly(2);
                 } else {
-                    Automode(2,0);
+                    Automode(2);
                 }
                 if (player1.hp <= 0){
                     return 2;
@@ -212,11 +221,11 @@ class Battle {
 
                 //player1 turn
                 if (modeselect == 1) {
-                    fightturn(1, 0);
+                    fightturn(1);
                 } else if (modeselect == 2){
-                    AttackOnly(1,0);
+                    AttackOnly(1);
                 } else {
-                    Automode(1,0);
+                    Automode(1);
                 }
                 if (player2.hp <= 0){
                     return 1;
@@ -227,16 +236,7 @@ class Battle {
 
     }
 
-    private void fightturn(int player,int cpu){
-        //variable
-        int skillchoice = 0,defendchoice = 0;
-        String attackerskill = "";
-        String defenderskill = "";
-        int attackerstatus = 0;
-        int defenderstatus = 0;
-        int finaldmg;
-        Character attacker = null,defender = null;
-        CPU battleai = null;
+    private void fightturn(int player){
 
         //ask user to choose attack skill
         do {
@@ -256,34 +256,6 @@ class Battle {
             }
         } while (skillchoice != 1 && skillchoice != 2);
 
-        switch (skillchoice) {
-            case 1:
-                attackerskill = attacker.getOffend();
-                    switch (attacker.getCharclass()) {
-                        case "Warrior":
-                            attackerstatus = attacker.getStr();
-                            break;
-                        case "Mage":
-                            attackerstatus = attacker.getWis();
-                            break;
-                        case "Archer":
-                            attackerstatus = attacker.getDex();
-                            break;
-                        //secret class
-                        default:
-                            attackerstatus = 9999;
-                    }
-                    break;
-
-            case 2:
-                    attackerskill = attacker.getNoffend();
-                    attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
-                    break;
-
-            default:
-                System.out.println("error");
-        }
-
         //defender select skill
         do {
             try {
@@ -294,89 +266,14 @@ class Battle {
             }
         } while (defendchoice != 1 && defendchoice != 2);
 
-        switch (defendchoice) {
-            case 1:
-                defenderskill = defender.getDefend();
-                break;
-
-            case 2:
-                defenderskill = defender.getNdefend();
-                break;
-
-            default:
-                System.out.println("error");
-        }
+        defenderskill = Defending(defendchoice);
 
         //calculation for final damage
             //get attack damage
-            int attackerdmg = Skill.OffendDamage(attackerskill, attackerstatus);
+            int attackerdmg = Attacking(skillchoice);
             //check the element advantage to determine final damage
-            switch (attackerskill){
-                case "Stab": //warrior
-                    switch (defenderskill){
-                        case "Shield Block": //warrior
-                        case "Normal Defend":
-                            finaldmg = attackerdmg;
-                            break;
-                        case "Ice Wall":
-                            finaldmg = attackerdmg * 2;
-                            break;
-                        case "Dodge":
-                            finaldmg = attackerdmg / 2;
-                            break;
-                        default:
-                            finaldmg = 0;
-                    }
-                    break;
-                case "Cast Spell": //mage
-                    switch (defenderskill){
-                        case "Shield Block":
-                            finaldmg = attackerdmg / 2;
-                            break;
-                        case "Ice Wall":
-                        case "Normal Defend":
-                            finaldmg = attackerdmg;
-                            break;
-                        case "Dodge":
-                            finaldmg = attackerdmg * 2;
-                            break;
-                        default:
-                            finaldmg = 0;
-                    }
-                    break;
-                case "Shoot": //archer
-                    switch (defenderskill){
-                        case "Shield Block":
-                            finaldmg = attackerdmg * 2;
-                            break;
-                        case "Ice Wall":
-                            finaldmg = attackerdmg / 2;
-                            break;
-                        case "Dodge":
-                        case "Normal Defend":
-                            finaldmg = attackerdmg;
-                            break;
-                        default:
-                            finaldmg = 0;
-                    }
-                    break;
-                case "Normal Attack":
-                    switch (defenderskill){
-                        case "Shield Block":
-                        case "Ice Wall":
-                        case "Dodge":
-                            finaldmg = attackerdmg;
-                            break;
-                        case "Normal Defend":
-                            finaldmg = attackerdmg*2;
-                            break;
-                        default:
-                            finaldmg = 0;
-                    }
-                    break;
-                default:
-                    finaldmg = attackerdmg;
-            }
+            finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
+
 
         System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
         System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
@@ -386,12 +283,7 @@ class Battle {
     }
 
     //attack only method
-    public void AttackOnly(int player, int cpu){
-
-        String attackerskill = "";
-        Character attacker = null,defender = null;
-        int skillchoice = 0;
-        int attackerstatus = 0;
+    private void AttackOnly(int player){
 
             if (player == 1) {
                 attacker = player1;
@@ -410,36 +302,8 @@ class Battle {
             }
         } while (skillchoice !=1 && skillchoice !=2);
 
-        switch (skillchoice) {
-            case 1:
-                attackerskill = attacker.getOffend();
-                switch (attacker.getCharclass()) {
-                    case "Warrior":
-                        attackerstatus = attacker.getStr();
-                        break;
-                    case "Mage":
-                        attackerstatus = attacker.getWis();
-                        break;
-                    case "Archer":
-                        attackerstatus = attacker.getDex();
-                        break;
-                    //secret class
-                    default:
-                        attackerstatus = 9999;
-                }
-                break;
-
-            case 2:
-                attackerskill = attacker.getNoffend();
-                attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
-                break;
-
-            default:
-                System.out.println("error");
-        }
-
         //get attack damage
-        int attackerdmg = Skill.OffendDamage(attackerskill, attackerstatus);
+        int attackerdmg = Attacking(skillchoice);
 
 
         System.out.println(attacker.getCharname() + " " + attacker.getOffend() + " " + defender.getCharname() + " for " + attackerdmg + " damage");
@@ -449,15 +313,7 @@ class Battle {
     }
 
     //Auto Mode
-    private void Automode(int player,int cpu){
-        //variable
-        int skillchoice,defendchoice;
-        String attackerskill = "";
-        String defenderskill = "";
-        int attackerstatus = 0;
-        int defenderstatus = 0;
-        int finaldmg;
-        Character attacker = null,defender = null;
+    private void Automode(int player){
 
         //ask user to choose attack skill
             if (player == 1) {
@@ -477,34 +333,6 @@ class Battle {
             }
         System.out.println("========================================");
 
-        switch (skillchoice) {
-            case 1:
-                attackerskill = attacker.getOffend();
-                switch (attacker.getCharclass()) {
-                    case "Warrior":
-                        attackerstatus = attacker.getStr();
-                        break;
-                    case "Mage":
-                        attackerstatus = attacker.getWis();
-                        break;
-                    case "Archer":
-                        attackerstatus = attacker.getDex();
-                        break;
-                    //secret class
-                    default:
-                        attackerstatus = 9999;
-                }
-                break;
-
-            case 2:
-                attackerskill = attacker.getNoffend();
-                attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
-                break;
-
-            default:
-                System.out.println("error");
-        }
-
         //random defender skill
             System.out.println(defender.getCharname() + " random skill for defend.");
             defendchoice = getStarter();
@@ -515,89 +343,11 @@ class Battle {
             }
         System.out.println("========================================");
 
-        switch (defendchoice) {
-            case 1:
-                defenderskill = defender.getDefend();
-                break;
-
-            case 2:
-                defenderskill = defender.getNdefend();
-                break;
-
-            default:
-                System.out.println("error");
-        }
-
         //calculation for final damage
         //get attack damage
-        int attackerdmg = Skill.OffendDamage(attackerskill, attackerstatus);
+        int attackerdmg = Attacking(skillchoice);
         //check the element advantage to determine final damage
-        switch (attackerskill){
-            case "Stab": //warrior
-                switch (defenderskill){
-                    case "Shield Block": //warrior
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Cast Spell": //mage
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Ice Wall":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Shoot": //archer
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Dodge":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Normal Attack":
-                switch (defenderskill){
-                    case "Shield Block":
-                    case "Ice Wall":
-                    case "Dodge":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Normal Defend":
-                        finaldmg = attackerdmg*2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            default:
-                finaldmg = attackerdmg;
-        }
+        finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
 
         System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
         System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
@@ -610,15 +360,8 @@ class Battle {
     //player choose then cpu random
     private void playvscpu(int player){
 
-        //variable
-        String skillchoice,defendchoice;
+        //Variable for cpu skill random
         int skillrandom,defendrandom;
-        String attackerskill = "";
-        String defenderskill = "";
-        int attackerstatus = 0;
-        int defenderstatus = 0;
-        int finaldmg;
-        Character attacker = null,defender = null;
 
         //ask user to choose attack skill
         if (player == 1) {
@@ -632,36 +375,13 @@ class Battle {
         //seperate player and cpu way to attack
         if (attacker == player1){
             do {
-                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
-                skillchoice = console.next();
-            } while (!skillchoice.equalsIgnoreCase("1") && !skillchoice.equalsIgnoreCase("2"));
-            switch (skillchoice){
-                case "1":
-                    attackerskill = attacker.getOffend();
-                    switch (attacker.getCharclass()) {
-                        case "Warrior":
-                            attackerstatus = attacker.getStr();
-                            break;
-                        case "Mage":
-                            attackerstatus = attacker.getWis();
-                            break;
-                        case "Archer":
-                            attackerstatus = attacker.getDex();
-                            break;
-                        //secret class
-                        default:
-                            attackerstatus = 9999;
-                    }
-                    break;
+                try {
+                    System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+                    skillchoice = Integer.parseInt(console.next());
+                } catch (Exception ignore) {
 
-                case "2":
-                    attackerskill = attacker.getNoffend();
-                    attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
-                    break;
-
-                default:
-                    System.out.println("error");
-            }
+                }
+            } while (skillchoice !=1 && skillchoice!=2);
         } else {
             System.out.println(attacker.getCharname() + " turn. Random skill to use.");
             skillrandom = getStarter();
@@ -669,34 +389,6 @@ class Battle {
                 System.out.println(attacker.getCharname() + " will use " +attacker.getOffend());
             } else {
                 System.out.println(attacker.getCharname() + " will use " +attacker.getNoffend());
-            }
-
-            switch (skillrandom) {
-                case 1:
-                    attackerskill = attacker.getOffend();
-                    switch (attacker.getCharclass()) {
-                        case "Warrior":
-                            attackerstatus = attacker.getStr();
-                            break;
-                        case "Mage":
-                            attackerstatus = attacker.getWis();
-                            break;
-                        case "Archer":
-                            attackerstatus = attacker.getDex();
-                            break;
-                        //secret class
-                        default:
-                            attackerstatus = 9999;
-                    }
-                    break;
-
-                case 2:
-                    attackerskill = attacker.getNoffend();
-                    attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
-                    break;
-
-                default:
-                    System.out.println("error");
             }
         }
         System.out.println("========================================");
@@ -706,21 +398,11 @@ class Battle {
             do {
                 assert defender != null;
                 System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
-                defendchoice = console.next();
-            } while (!defendchoice.equalsIgnoreCase("1") && !defendchoice.equalsIgnoreCase("2"));
+                defendchoice = Integer.parseInt(console.next());
+            } while (defendchoice!=1 && defendchoice!=2);
 
-            switch (defendchoice) {
-                case "1":
-                    defenderskill = defender.getDefend();
-                    break;
+            defenderskill = Defending(defendchoice);
 
-                case "2":
-                    defenderskill = defender.getNdefend();
-                    break;
-
-                default:
-                    System.out.println("error");
-            }
         } else {
             assert defender != null;
             System.out.println(defender.getCharname() + " random skill for defend.");
@@ -732,95 +414,19 @@ class Battle {
             }
             System.out.println("========================================");
 
-            switch (defendrandom) {
-                case 1:
-                    defenderskill = defender.getDefend();
-                    break;
-
-                case 2:
-                    defenderskill = defender.getNdefend();
-                    break;
-
-                default:
-                    System.out.println("error");
-            }
+            defenderskill = Defending(defendchoice);
         }
         //calculation for final damage
         //get attack damage
-        int attackerdmg = Skill.OffendDamage(attackerskill, attackerstatus);
+        int attackerdmg = Attacking(skillchoice);
         //check the element advantage to determine final damage
-        switch (attackerskill){
-            case "Stab": //warrior
-                switch (defenderskill){
-                    case "Shield Block": //warrior
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Cast Spell": //mage
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Ice Wall":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Dodge":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Shoot": //archer
-                switch (defenderskill){
-                    case "Shield Block":
-                        finaldmg = attackerdmg * 2;
-                        break;
-                    case "Ice Wall":
-                        finaldmg = attackerdmg / 2;
-                        break;
-                    case "Dodge":
-                    case "Normal Defend":
-                        finaldmg = attackerdmg;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            case "Normal Attack":
-                switch (defenderskill){
-                    case "Shield Block":
-                    case "Ice Wall":
-                    case "Dodge":
-                        finaldmg = attackerdmg;
-                        break;
-                    case "Normal Defend":
-                        finaldmg = attackerdmg*2;
-                        break;
-                    default:
-                        finaldmg = 0;
-                }
-                break;
-            default:
-                finaldmg = attackerdmg;
-        }
+        finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
+
 
         System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
         System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
         defender.hp -= finaldmg;
         System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
-
 
     }
 
@@ -844,5 +450,132 @@ class Battle {
 
         return r.nextInt((2-1)+1) + 1;
     }
+
+    //Attacking Method
+    private int Attacking(int skillchoice) {
+
+        switch (skillchoice) {
+            case 1:
+                attackerskill = attacker.getOffend();
+                switch (attacker.getCharclass()) {
+                    case "Warrior":
+                        attackerstatus = attacker.getStr();
+                        break;
+                    case "Mage":
+                        attackerstatus = attacker.getWis();
+                        break;
+                    case "Archer":
+                        attackerstatus = attacker.getDex();
+                        break;
+                    //secret class
+                    default:
+                        attackerstatus = 9999;
+                }
+                break;
+
+            case 2:
+                attackerskill = attacker.getNoffend();
+                attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
+                break;
+
+            default:
+                System.out.println("error");
+        }
+
+        return Skill.OffendDamage(attackerskill, attackerstatus);
+
+    }
+
+    //Defending Method
+    private String Defending(int defendchoice){
+        switch (defendchoice) {
+            case 1:
+                defenderskill = defender.getDefend();
+                break;
+
+            case 2:
+                defenderskill = defender.getNdefend();
+                break;
+
+            default:
+                System.out.println("error");
+        }
+
+        return defenderskill;
+    }
+
+    //Element Checker for final damage
+    private int ElementCheck(String attackerskill,String defenderskill,int attackerdmg){
+
+        switch (attackerskill){
+            case "Stab": //warrior
+                switch (defenderskill){
+                    case "Shield Block": //warrior
+                    case "Normal Defend":
+                        finaldmg = attackerdmg;
+                        break;
+                    case "Ice Wall":
+                        finaldmg = attackerdmg * 2;
+                        break;
+                    case "Dodge":
+                        finaldmg = attackerdmg / 2;
+                        break;
+                    default:
+                        finaldmg = 0;
+                }
+                break;
+            case "Cast Spell": //mage
+                switch (defenderskill){
+                    case "Shield Block":
+                        finaldmg = attackerdmg / 2;
+                        break;
+                    case "Ice Wall":
+                    case "Normal Defend":
+                        finaldmg = attackerdmg;
+                        break;
+                    case "Dodge":
+                        finaldmg = attackerdmg * 2;
+                        break;
+                    default:
+                        finaldmg = 0;
+                }
+                break;
+            case "Shoot": //archer
+                switch (defenderskill){
+                    case "Shield Block":
+                        finaldmg = attackerdmg * 2;
+                        break;
+                    case "Ice Wall":
+                        finaldmg = attackerdmg / 2;
+                        break;
+                    case "Dodge":
+                    case "Normal Defend":
+                        finaldmg = attackerdmg;
+                        break;
+                    default:
+                        finaldmg = 0;
+                }
+                break;
+            case "Normal Attack":
+                switch (defenderskill){
+                    case "Shield Block":
+                    case "Ice Wall":
+                    case "Dodge":
+                        finaldmg = attackerdmg;
+                        break;
+                    case "Normal Defend":
+                        finaldmg = attackerdmg*2;
+                        break;
+                    default:
+                        finaldmg = 0;
+                }
+                break;
+            default:
+                finaldmg = attackerdmg;
+        }
+
+        return finaldmg;
+    }
+
 
 }
