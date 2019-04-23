@@ -157,20 +157,24 @@ public class Battle {
       private int FightingPvP(int Starter){
         //variable
         //int hasWinner = 0;
-          String modeselect = "";
+          int modeselect = 0;
 
           //ask for the mode to play
           do {
-              System.out.println("==========\nPlease Choose your game mode. . .\n1. Normal Mode\n2. Attack Only Mode\n3. Auto Mode");
-              modeselect = console.next();
-          } while (!modeselect.equalsIgnoreCase("1") && !modeselect.equalsIgnoreCase("2") && !modeselect.equalsIgnoreCase("3"));
+              try {
+                  System.out.println("==========\nPlease Choose your game mode. . .\n1. Normal Mode\n2. Attack Only Mode\n3. Auto Mode");
+                  modeselect = Integer.parseInt(console.next());
+              } catch (Exception ignore) {
+
+              }
+          } while (modeselect!=1 && modeselect!=2 && modeselect!=3);
 
           if (Starter == 1){ //player1 start first
             do {
                 //player1 turn
-                if (modeselect.equalsIgnoreCase("1")) {
+                if (modeselect == 1) {
                     fightturn(1, 0);
-                } else if (modeselect.equalsIgnoreCase("2")){
+                } else if (modeselect == 2){
                     AttackOnly(1,0);
                 } else {
                     Automode(1,0);
@@ -181,9 +185,9 @@ public class Battle {
                 }
 
                 //player2 turn
-                if (modeselect.equalsIgnoreCase("1")) {
+                if (modeselect == 1) {
                     fightturn(2, 0);
-                } else if (modeselect.equalsIgnoreCase("2")){
+                } else if (modeselect == 2){
                     AttackOnly(2,0);
                 } else {
                     Automode(2,0);
@@ -198,9 +202,9 @@ public class Battle {
 
             do {
                 //player2 turn
-                if (modeselect.equalsIgnoreCase("1")) {
+                if (modeselect == 1) {
                     fightturn(2, 0);
-                } else if (modeselect.equalsIgnoreCase("2")){
+                } else if (modeselect == 2){
                     AttackOnly(2,0);
                 } else {
                     Automode(2,0);
@@ -210,9 +214,9 @@ public class Battle {
                 }
 
                 //player1 turn
-                if (modeselect.equalsIgnoreCase("1")) {
+                if (modeselect == 1) {
                     fightturn(1, 0);
-                } else if (modeselect.equalsIgnoreCase("2")){
+                } else if (modeselect == 2){
                     AttackOnly(1,0);
                 } else {
                     Automode(1,0);
@@ -228,7 +232,7 @@ public class Battle {
 
     private void fightturn(int player,int cpu){
         //variable
-        String skillchoice,defendchoice;
+        int skillchoice = 0,defendchoice = 0;
         String attackerskill = "";
         String defenderskill = "";
         int attackerstatus = 0;
@@ -247,12 +251,16 @@ public class Battle {
                 defender = player1;
             }
 
-            System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
-            skillchoice = console.next();
-        } while (!skillchoice.equalsIgnoreCase("1") && !skillchoice.equalsIgnoreCase("2"));
+            try {
+                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+                skillchoice = Integer.parseInt(console.next());
+            } catch (Exception ignore) {
+
+            }
+        } while (skillchoice != 1 && skillchoice != 2);
 
         switch (skillchoice) {
-            case "1":
+            case 1:
                 attackerskill = attacker.getOffend();
                     switch (attacker.getCharclass()) {
                         case "Warrior":
@@ -270,7 +278,7 @@ public class Battle {
                     }
                     break;
 
-            case "2":
+            case 2:
                     attackerskill = attacker.getNoffend();
                     attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
                     break;
@@ -281,16 +289,20 @@ public class Battle {
 
         //defender select skill
         do {
-            System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
-            defendchoice = console.next();
-        } while (!defendchoice.equalsIgnoreCase("1") && !defendchoice.equalsIgnoreCase("2"));
+            try {
+                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
+                defendchoice = Integer.parseInt(console.next());
+            } catch (Exception ignore) {
+
+            }
+        } while (defendchoice != 1 && defendchoice != 2);
 
         switch (defendchoice) {
-            case "1":
+            case 1:
                 defenderskill = defender.getDefend();
                 break;
 
-            case "2":
+            case 2:
                 defenderskill = defender.getNdefend();
                 break;
 
