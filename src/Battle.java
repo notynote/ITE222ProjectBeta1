@@ -235,7 +235,7 @@ class Battle {
         }
 
     }
-
+//test
     private void fightturn(int player){
 
         //ask user to choose attack skill
