@@ -407,7 +407,7 @@ public class Battle {
         do {
             try {
                 System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
-                skillchoice = console.next();
+                skillchoice = Integer.parseInt(console.next());
             } catch (Exception ignore) {
 
             }
