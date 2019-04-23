@@ -10,19 +10,18 @@ class Battle {
     private Random r = new Random();
 
     //Battle variable
-    int skillchoice = 0,defendchoice = 0;
-    String attackerskill = "";
-    String defenderskill = "";
-    int attackerstatus = 0;
-    int defenderstatus = 0;
-    int finaldmg;
-    Character attacker = null,defender = null;
+    private int skillchoice = 0,defendchoice = 0;
+    private String attackerskill = "";
+    private String defenderskill = "";
+    private int attackerstatus = 0;
+    private int finaldmg;
+    private Character attacker = null,defender = null;
 
     //Scanner
     private Scanner console = new Scanner(System.in);
 
     //constructor Battle for 1 player vs cpu
-    Battle(Character player1,String modeselect){
+    Battle(Character player1,String modeselect) throws InterruptedException{
 
         //variable
         int whowin,starter;
@@ -33,6 +32,7 @@ class Battle {
             for (int i = 1; i <= 10; i++ ) {
                 this.battleai = new CPU(i);
                 System.out.println("You are facing " + battleai.getCharname() + "\nDetail:\n" + battleai +"\n-=-=-=-=-=-=-");
+                Thread.sleep(1000);
                 //random who go first
                 starter = getStarter();
                 if (starter == 1) {
@@ -45,6 +45,7 @@ class Battle {
                     int healamount = i*100; //recover stage multiply by hundred to hp
                     player1.hp += healamount;
                     System.out.println("*****\nYou recover " + healamount + " for winning\nNow you have "+ player1.hp +"\n*****\n\n");
+                    Thread.sleep(500);
 
                 } else if (starter == 2){
                     //CPU go first
@@ -56,6 +57,7 @@ class Battle {
                     int healamount = i*100;
                     player1.hp += healamount;
                     System.out.println("*****\nYour hp recovers by " + healamount + " for winning\nNow you have "+ player1.hp +"\n*****\n\n");
+                    Thread.sleep(500);
 
                 }
             }
@@ -66,17 +68,23 @@ class Battle {
             
             if (player1.hp > 0) {
                 System.out.println("**********");
+                Thread.sleep(50);
                 System.out.println("!!YOU-WON!!");
+                Thread.sleep(50);
                 System.out.println("-CONGRATZ-");
+                Thread.sleep(50);
                 System.out.println("**********\n");
+                Thread.sleep(1000);
             } else {
                 System.out.println("!!GAME OVER!!\nxxxxxxxxxxx\n");
+                Thread.sleep(1000);
             }
             
         } else {
             //create random ai
             this.battleai = new CPU();
             System.out.println("You are facing " + battleai.getCharname() + "\nDetail:\n" + battleai + "\n-=-=-=-=-=-=-=-=-");
+            Thread.sleep(1000);
 
             //random who go first
             starter = getStarter();
@@ -96,7 +104,7 @@ class Battle {
     }
 
     //constructor Battle for 2 player
-    Battle(Character player1, Character player2){
+    Battle(Character player1, Character player2) throws InterruptedException{
 
         //variable
         int whowin,starter;
@@ -108,17 +116,19 @@ class Battle {
         if (starter == 1){
             //player 1 go first
             System.out.println(player1.getCharname() + " go first!!");
+            Thread.sleep(500);
             whowin = FightingPvP(1);
             Annoucer(whowin);
         } else {
             //player 2 go first
             System.out.println(player2.getCharname() + " go first!!");
+            Thread.sleep(500);
             whowin = FightingPvP(2);
             Annoucer(whowin);
         }
     }
 
-    private  int FightingPVC(int Starter){
+    private  int FightingPVC(int Starter) throws InterruptedException{
 
         if (Starter == 1){ //player1 start first
             do {
@@ -160,7 +170,7 @@ class Battle {
 
     //Fighting Method Player vs Player
 //    private int FightingPvP(Character player1,Character player2,int Starter){
-      private int FightingPvP(int Starter){
+      private int FightingPvP(int Starter) throws InterruptedException{
         //variable
         //int hasWinner = 0;
           int modeselect = 0;
@@ -235,8 +245,8 @@ class Battle {
         }
 
     }
-//test
-    private void fightturn(int player){
+
+    private void fightturn(int player) throws InterruptedException{
 
         //ask user to choose attack skill
         do {
@@ -249,6 +259,7 @@ class Battle {
             }
 
             try {
+                Thread.sleep(500);
                 System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
                 skillchoice = Integer.parseInt(console.next());
             } catch (Exception ignore) {
@@ -259,6 +270,7 @@ class Battle {
         //defender select skill
         do {
             try {
+                Thread.sleep(500);
                 System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
                 defendchoice = Integer.parseInt(console.next());
             } catch (Exception ignore) {
@@ -276,8 +288,10 @@ class Battle {
 
 
         System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+        Thread.sleep(500);
         System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
         defender.hp -= finaldmg;
+        Thread.sleep(500);
         System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
 
     }
@@ -313,7 +327,7 @@ class Battle {
     }
 
     //Auto Mode
-    private void Automode(int player){
+    private void Automode(int player) throws InterruptedException{
 
         //ask user to choose attack skill
             if (player == 1) {
@@ -324,22 +338,28 @@ class Battle {
                 defender = player1;
             }
 
+            Thread.sleep(500);
             System.out.println(attacker.getCharname() + " turn. Random skill to use.");
             skillchoice = getStarter();
             if (skillchoice == 1){
-                System.out.println(attacker.getCharname() + " will use " +attacker.getOffend());
+                Thread.sleep(700);
+                System.out.println(attacker.getCharname() + " will use \"" +attacker.getOffend() + "\"");
             } else {
-                System.out.println(attacker.getCharname() + " will use " +attacker.getNoffend());
+                Thread.sleep(700);
+                System.out.println(attacker.getCharname() + " will use \"" +attacker.getNoffend() + "\"");
             }
         System.out.println("========================================");
 
         //random defender skill
+            Thread.sleep(500);
             System.out.println(defender.getCharname() + " random skill for defend.");
             defendchoice = getStarter();
             if (defendchoice == 1){
-                System.out.println(defender.getCharname() + " will use " +defender.getDefend());
+                Thread.sleep(700);
+                System.out.println(defender.getCharname() + " will use \"" +defender.getDefend() + "\"");
             } else {
-                System.out.println(defender.getCharname() + " will use " +defender.getNdefend());
+                Thread.sleep(700);
+                System.out.println(defender.getCharname() + " will use \"" +defender.getNdefend() + "\"");
             }
         System.out.println("========================================");
 
@@ -350,18 +370,21 @@ class Battle {
         finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
 
         System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+        Thread.sleep(500);
         System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
         defender.hp -= finaldmg;
-        System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+        Thread.sleep(500);
+        System.out.println("========================================\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n========================================");
+        Thread.sleep(500);
 
     }
 
     //player vs cpu fight mode
     //player choose then cpu random
-    private void playvscpu(int player){
+    private void playvscpu(int player) throws InterruptedException{
 
         //Variable for cpu skill random
-        int skillrandom,defendrandom;
+        int skillrandom,defendrandom,attackerdmg;
 
         //ask user to choose attack skill
         if (player == 1) {
@@ -376,20 +399,26 @@ class Battle {
         if (attacker == player1){
             do {
                 try {
+                    Thread.sleep(500);
                     System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
                     skillchoice = Integer.parseInt(console.next());
                 } catch (Exception ignore) {
 
                 }
             } while (skillchoice !=1 && skillchoice!=2);
+            attackerdmg = Attacking(skillchoice);
         } else {
+            Thread.sleep(500);
             System.out.println(attacker.getCharname() + " turn. Random skill to use.");
             skillrandom = getStarter();
             if (skillrandom == 1){
-                System.out.println(attacker.getCharname() + " will use " +attacker.getOffend());
+                Thread.sleep(500);
+                System.out.println(attacker.getCharname() + " will use \"" +attacker.getOffend() + "\"");
             } else {
-                System.out.println(attacker.getCharname() + " will use " +attacker.getNoffend());
+                Thread.sleep(500);
+                System.out.println(attacker.getCharname() + " will use \"" +attacker.getNoffend() + "\"");
             }
+            attackerdmg = Attacking(skillrandom);
         }
         System.out.println("========================================");
 
@@ -397,6 +426,7 @@ class Battle {
         if (defender == player1){
             do {
                 assert defender != null;
+                Thread.sleep(500);
                 System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
                 defendchoice = Integer.parseInt(console.next());
             } while (defendchoice!=1 && defendchoice!=2);
@@ -405,40 +435,46 @@ class Battle {
 
         } else {
             assert defender != null;
+            Thread.sleep(500);
             System.out.println(defender.getCharname() + " random skill for defend.");
             defendrandom = getStarter();
             if (defendrandom == 1) {
-                System.out.println(defender.getCharname() + " will use " + defender.getDefend());
+                Thread.sleep(500);
+                System.out.println(defender.getCharname() + " will use \"" + defender.getDefend()+"\"");
             } else {
-                System.out.println(defender.getCharname() + " will use " + defender.getNdefend());
+                Thread.sleep(500);
+                System.out.println(defender.getCharname() + " will use \"" + defender.getNdefend()+"\"");
             }
             System.out.println("========================================");
 
-            defenderskill = Defending(defendchoice);
+            defenderskill = Defending(defendrandom);
         }
         //calculation for final damage
-        //get attack damage
-        int attackerdmg = Attacking(skillchoice);
         //check the element advantage to determine final damage
         finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
 
-
+        Thread.sleep(500);
         System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+        Thread.sleep(500);
         System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
         defender.hp -= finaldmg;
-        System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+        Thread.sleep(500);
+        System.out.println("========================================\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n========================================");
 
     }
 
     //announcer method
-    private void Annoucer(int winner){
+    private void Annoucer(int winner) throws InterruptedException{
 
         if (winner == 1){
             System.out.println("**********\n" + player1.getCharname() + " WON the fight!!\n**********");
+            Thread.sleep(500);
         } else if (winner == 2){
             System.out.println("**********\n" + player2.getCharname() + " WON the fight!!\n**********");
+            Thread.sleep(500);
         } else {
             System.out.println("**********\n" + battleai.getCharname() + " WON the fight!!\n**********");
+            Thread.sleep(300);
         }
 
     }
@@ -576,6 +612,5 @@ class Battle {
 
         return finaldmg;
     }
-
 
 }
