@@ -393,7 +393,7 @@ public class Battle {
 
         String attackerskill = "";
         Character attacker = null,defender = null;
-        String skillchoice;
+        int skillchoice = 0;
         int attackerstatus = 0;
 
             if (player == 1) {
@@ -405,12 +405,16 @@ public class Battle {
             }
 
         do {
-            System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
-            skillchoice = console.next();
-        } while (!skillchoice.equalsIgnoreCase("1") && !skillchoice.equalsIgnoreCase("2"));
+            try {
+                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+                skillchoice = console.next();
+            } catch (Exception ignore) {
+
+            }
+        } while (skillchoice !=1 && skillchoice !=2);
 
         switch (skillchoice) {
-            case "1":
+            case 1:
                 attackerskill = attacker.getOffend();
                 switch (attacker.getCharclass()) {
                     case "Warrior":
@@ -428,7 +432,7 @@ public class Battle {
                 }
                 break;
 
-            case "2":
+            case 2:
                 attackerskill = attacker.getNoffend();
                 attackerstatus = attacker.getStr() + attacker.getDex() + attacker.getWis();
                 break;
