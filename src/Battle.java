@@ -279,8 +279,13 @@ class Battle {
 
             try {
                 Thread.sleep(500);
-                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend() + "\n3. Check my Status\n4. Check Enemy Status");
                 skillchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(attacker+"\n=================");
+                } else if (skillchoice == 4) {
+                    System.out.println(defender+"\n=================");
+                }
             } catch (Exception ignore) {
 
             }
@@ -290,8 +295,13 @@ class Battle {
         do {
             try {
                 Thread.sleep(500);
-                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
+                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 defendchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(defender+"\n=================");
+                } else if (skillchoice == 4) {
+                    System.out.println(attacker+"\n=================");
+                }
             } catch (Exception ignore) {
 
             }
@@ -328,8 +338,13 @@ class Battle {
 
         do {
             try {
-                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 skillchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(attacker+"\n=================");
+                } else if (skillchoice == 4) {
+                    System.out.println(defender+"\n=================");
+                }
             } catch (Exception ignore) {
 
             }
@@ -419,8 +434,13 @@ class Battle {
             do {
                 try {
                     Thread.sleep(500);
-                    System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+                    System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend()+ "\n3. Check my Status\n4. Check Enemy Status");
                     skillchoice = Integer.parseInt(console.next());
+                    if (skillchoice == 3) {
+                        System.out.println(attacker+"\n=================");
+                    } else if (skillchoice == 4) {
+                        System.out.println(defender+"\n=================");
+                    }
                 } catch (Exception ignore) {
 
                 }
@@ -446,8 +466,13 @@ class Battle {
             do {
                 assert defender != null;
                 Thread.sleep(500);
-                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
+                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 defendchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(defender+"\n=================");
+                } else if (skillchoice == 4) {
+                    System.out.println(attacker+"\n=================");
+                }
             } while (defendchoice!=1 && defendchoice!=2);
 
             defenderskill = Defending(defendchoice);
