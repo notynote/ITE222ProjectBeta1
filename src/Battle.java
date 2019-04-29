@@ -279,8 +279,13 @@ class Battle {
 
             try {
                 Thread.sleep(500);
-                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
+                System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend() + "\n3. Check my Status\n4. Check Enemy Status");
                 skillchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(attacker);
+                } else if (skillchoice == 4) {
+                    System.out.println(defender);
+                }
             } catch (Exception ignore) {
 
             }
@@ -290,8 +295,13 @@ class Battle {
         do {
             try {
                 Thread.sleep(500);
-                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
+                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 defendchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(defender);
+                } else if (skillchoice == 4) {
+                    System.out.println(attacker);
+                }
             } catch (Exception ignore) {
 
             }
@@ -330,6 +340,11 @@ class Battle {
             try {
                 System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
                 skillchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(attacker);
+                } else if (skillchoice == 4) {
+                    System.out.println(defender);
+                }
             } catch (Exception ignore) {
 
             }
@@ -421,6 +436,11 @@ class Battle {
                     Thread.sleep(500);
                     System.out.println(attacker.getCharname() + " turn. What skill do you want to use?\n1. " + attacker.getOffend() + "\n2. " + attacker.getNoffend());
                     skillchoice = Integer.parseInt(console.next());
+                    if (skillchoice == 3) {
+                        System.out.println(attacker);
+                    } else if (skillchoice == 4) {
+                        System.out.println(defender);
+                    }
                 } catch (Exception ignore) {
 
                 }
@@ -448,6 +468,11 @@ class Battle {
                 Thread.sleep(500);
                 System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend());
                 defendchoice = Integer.parseInt(console.next());
+                if (skillchoice == 3) {
+                    System.out.println(defender);
+                } else if (skillchoice == 4) {
+                    System.out.println(attacker);
+                }
             } while (defendchoice!=1 && defendchoice!=2);
 
             defenderskill = Defending(defendchoice);
