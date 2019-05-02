@@ -295,7 +295,7 @@ class Battle {
         do {
             try {
                 Thread.sleep(500);
-                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
+                System.out.println(defender.getCharname() + " prepare for defend - What skill do you want to use?\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
                     System.out.println(defender+"\n=================");
@@ -466,7 +466,7 @@ class Battle {
             do {
                 assert defender != null;
                 Thread.sleep(500);
-                System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
+                System.out.println(defender.getCharname() + " prepare for defend - What skill do you want to use?\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 defendchoice = Integer.parseInt(console.next());
                 if (defendchoice == 3) {
                     System.out.println(defender+"\n=================");
