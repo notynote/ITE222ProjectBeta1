@@ -297,9 +297,9 @@ class Battle {
                 Thread.sleep(500);
                 System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 defendchoice = Integer.parseInt(console.next());
-                if (skillchoice == 3) {
+                if (defendchoice == 3) {
                     System.out.println(defender+"\n=================");
-                } else if (skillchoice == 4) {
+                } else if (defendchoice == 4) {
                     System.out.println(attacker+"\n=================");
                 }
             } catch (Exception ignore) {
@@ -468,9 +468,9 @@ class Battle {
                 Thread.sleep(500);
                 System.out.println(defender.getCharname() + " prepare for defend\n1. " + defender.getDefend() + "\n2. " + defender.getNdefend()+ "\n3. Check my Status\n4. Check Enemy Status");
                 defendchoice = Integer.parseInt(console.next());
-                if (skillchoice == 3) {
+                if (defendchoice == 3) {
                     System.out.println(defender+"\n=================");
-                } else if (skillchoice == 4) {
+                } else if (defendchoice == 4) {
                     System.out.println(attacker+"\n=================");
                 }
             } while (defendchoice!=1 && defendchoice!=2);

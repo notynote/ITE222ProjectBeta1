@@ -25,9 +25,10 @@ public class Main {
             do { //check for correct input
                 try {
                     System.out.println("1. Arcade Mode\n2. Player vs CPU\n3. Player vs Player\n4. Character Creator\n5. Exit the Game");
+                    System.out.println("Please input your selection");
                     usermenu = Integer.parseInt(console.next());
                 } catch (Exception ignore){
-                    System.out.println("=====Error=====\nPleasr input the correct input\n===============");
+                    System.out.println("=====Error=====\nPlease input the correct input\n===============");
                 }
             } while (usermenu !=1 && usermenu !=2 && usermenu !=3 && usermenu !=4 && usermenu !=5);
 
