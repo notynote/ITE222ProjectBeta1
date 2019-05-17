@@ -36,4 +36,29 @@ public class Skill {
         return offdamage;
     }
 
+    //Calculate Dodge
+    public static int Dodge(int luck){
+        int chance = 0;
+
+        chance = Helper.getRandomNumberInRange(0,luck);
+
+        switch (chance){
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 9:
+            case 0:
+            case 6:
+                return 0;
+            case 2:
+            case 4:
+            case 8:
+                return 1;
+        }
+
+        return 0;
+
+    }
+
 }

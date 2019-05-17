@@ -7,6 +7,7 @@ public class Character {
     private int str;
     private int wis;
     private int dex;
+    private int luck;
     private String offend,defend,noffend,ndefend = "";
     private String charclass,charname;
 
@@ -23,6 +24,7 @@ public class Character {
         this.str = Helper.getRandomNumberInRange(1,9);
         this.wis = Helper.getRandomNumberInRange(1,9);
         this.dex = Helper.getRandomNumberInRange(1,9);
+        this.luck = Helper.getRandomNumberInRange(1,9);
 
         //this function allow user to choose the class if they know a keyword
         //check if user put the keyword for class
@@ -70,6 +72,7 @@ public class Character {
                 this.str = 1;
                 this.wis = 1;
                 this.dex = 1;
+                this.luck = 1;
                 break;
             case 2:
                 this.charname = "Extremely Easy CPU";
@@ -77,6 +80,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(1,3);
                 this.wis = Helper.getRandomNumberInRange(1,3);
                 this.dex = Helper.getRandomNumberInRange(1,3);
+                this.luck = 1;
                 break;
             case 3:
                 this.charname = "Very Easy CPU";
@@ -84,6 +88,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(1,5);
                 this.wis = Helper.getRandomNumberInRange(1,5);
                 this.dex = Helper.getRandomNumberInRange(1,5);
+                this.luck = 1;
                 break;
             case 4:
                 this.charname = "Easy CPU";
@@ -91,6 +96,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(1,7);
                 this.wis = Helper.getRandomNumberInRange(1,7);
                 this.dex = Helper.getRandomNumberInRange(1,7);
+                this.luck = 1;
                 break;
             case 5:
                 this.charname = "Medium CPU";
@@ -98,6 +104,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(1,9);
                 this.wis = Helper.getRandomNumberInRange(1,9);
                 this.dex = Helper.getRandomNumberInRange(1,9);
+                this.luck = 1;
                 break;
             case 6:
                 this.charname = "Hard CPU";
@@ -105,6 +112,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(3,9);
                 this.wis = Helper.getRandomNumberInRange(3,9);
                 this.dex = Helper.getRandomNumberInRange(3,9);
+                this.luck = 1;
                 break;
             case 7:
                 this.charname = "Insane CPU";
@@ -112,6 +120,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(6,9);
                 this.wis = Helper.getRandomNumberInRange(6,9);
                 this.dex = Helper.getRandomNumberInRange(6,9);
+                this.luck = 1;
                 break;
             case 8:
                 this.charname = "Nightmare CPU";
@@ -119,6 +128,7 @@ public class Character {
                 this.str = 9;
                 this.wis = 9;
                 this.dex = 9;
+                this.luck = 1;
                 break;
             case 9:
                 this.charname = "Impossible CPU";
@@ -133,6 +143,7 @@ public class Character {
                 this.str = Helper.getRandomNumberInRange(9,20);
                 this.wis = Helper.getRandomNumberInRange(9,20);
                 this.dex = Helper.getRandomNumberInRange(9,20);
+                this.luck = 1;
                 break;
             default:
                 this.charname = "You Just Cannot Win This . . .";
@@ -140,6 +151,7 @@ public class Character {
                 this.str = 9999;
                 this.wis = 9999;
                 this.dex = 9999;
+                this.luck = 1;
 
         }
 
@@ -203,9 +215,9 @@ public class Character {
     public String toString(){
 
         String charskill = offend + ", " + defend + ", " + noffend + ", " + ndefend;
-        return "Character Name is " + this.charname + " Class is " + this.charclass +
-                " HP: " + this.hp + " STR: " + this.str + " WIS: " + this.wis + " DEX: " + this.dex +
-                " Skills: " + charskill;
+        return "Character Name is " + this.charname + "\nClass is " + this.charclass +
+                "\nHP: " + this.hp + "\nSTR: " + this.str + "\nWIS: " + this.wis + "\nDEX: " + this.dex +
+                "\nSkills: " + charskill;
     }
 
     //get methods
@@ -250,6 +262,7 @@ public class Character {
         return ndefend;
     }
 
-
-
+    int getLuck() {
+        return luck;
+    }
 }
