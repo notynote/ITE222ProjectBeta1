@@ -15,9 +15,6 @@ public class Main {
         int usermenu = 0;
         int endprogram;
 
-        //initialise weapon
-        Helper.Armory();
-
         //do while to loop the program
         do {
             //Main Menu

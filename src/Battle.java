@@ -18,9 +18,14 @@ class Battle {
     private Character attacker = null,defender = null;
     private int dodge = 0;
     private int turn = 0;
+    private int foundweapon = 0;
+    private Weapon holding;
 
     //Scanner
     private Scanner console = new Scanner(System.in);
+
+    //Weapon Array
+    private Weapon[] armory;
 
     //constructor Battle for 1 player vs cpu
     Battle(Character player1,String modeselect) throws InterruptedException{
@@ -30,6 +35,17 @@ class Battle {
         this.player1 = player1;
         //int finish = 0;
 
+        //preload weapon
+        //Create Array of Weapon
+        armory = new Weapon[5];
+
+        armory[0] = new Weapon("Stick", 5);
+        armory[1] = new Weapon("Wooden Sword", 10);
+        armory[2] = new Weapon("Iron Sword", 20);
+        armory[3] = new Weapon("Magic Sword", 30);
+        armory[4] = new Weapon("Master Sword", 50);
+
+        //start
         if (modeselect.equalsIgnoreCase("1")){
             for (int i = 1; i <= 10; i++ ) {
                 this.battleai = new CPU(i);
@@ -354,6 +370,23 @@ class Battle {
         //count turn
         turn++;
 
+        //random found weapon chance (20%)
+        foundweapon = Helper.getRandomNumberInRange(1,5);
+
+        //if more than 5 turn and found weapon is true
+        if (turn >= 10 && foundweapon == 3){
+
+            //random 1 weapon
+            holding = Helper.FoundWeapon(armory);
+            System.out.println("\n!!!!!!!!!!\n\n" + attacker.getCharname() + " found a " + holding.Name + " (" + holding.Damage + " Damage)");
+            Thread.sleep(500);
+            System.out.println("!!!!!!!!!!\n\n" + attacker.getCharname() + " use " + holding.Name + " to attack " + defender.getCharname());
+            defender.hp -= holding.Damage;
+            Thread.sleep(500);
+            System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+
+        }
+
     }
 
     //attack only method
@@ -402,6 +435,23 @@ class Battle {
         }
         //count turn
         turn++;
+
+        //random found weapon chance (20%)
+        foundweapon = Helper.getRandomNumberInRange(1,5);
+
+        //if more than 10 turn and found weapon is true
+        if (turn >= 10 && foundweapon == 3){
+
+            //random 1 weapon
+            holding = Helper.FoundWeapon(armory);
+            System.out.println("\n!!!!!!!!!!\n\n" + attacker.getCharname() + " found a " + holding.Name + " (" + holding.Damage + " Damage)");
+            Thread.sleep(500);
+            System.out.println("!!!!!!!!!!\n\n" + attacker.getCharname() + " use " + holding.Name + " to attack " + defender.getCharname());
+            defender.hp -= holding.Damage;
+            Thread.sleep(500);
+            System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+
+        }
 
     }
 
@@ -580,6 +630,23 @@ class Battle {
 
         //count turn
         turn++;
+
+        //random found weapon chance (20%)
+        foundweapon = Helper.getRandomNumberInRange(1,5);
+
+        //if more than 5 turn and found weapon is true
+        if (turn >= 10 && foundweapon == 3){
+
+            //random 1 weapon
+            holding = Helper.FoundWeapon(armory);
+            System.out.println("\n!!!!!!!!!!\n\n" + attacker.getCharname() + " found a " + holding.Name + " (" + holding.Damage + " Damage)");
+            Thread.sleep(500);
+            System.out.println("!!!!!!!!!!\n\n" + attacker.getCharname() + " use " + holding.Name + " to attack " + defender.getCharname());
+            defender.hp -= holding.Damage;
+            Thread.sleep(500);
+            System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+
+        }
     }
 
     //announcer method
@@ -732,10 +799,5 @@ class Battle {
         return finaldmg;
     }
 
-    private static int Dodge(int charluk){
-
-        return 0;
-
-    }
 
 }
