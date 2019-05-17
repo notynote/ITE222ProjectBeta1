@@ -1,5 +1,7 @@
 //This class contain frequency use function
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class Helper {
 
@@ -14,6 +16,17 @@ public class Helper {
         }
 
         return rsd.nextInt((max-min)+1) + min;
+    }
+
+
+
+    //Give weapon to charactor
+    public static Weapon FoundWeapon(Weapon[] armory){
+
+        int i = getRandomNumberInRange(0,4);
+
+        return armory[i];
+
     }
 
 }
