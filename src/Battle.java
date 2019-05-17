@@ -16,6 +16,7 @@ class Battle {
     private int attackerstatus = 0;
     private int finaldmg;
     private Character attacker = null,defender = null;
+    private int dodge = 0;
 
     //Scanner
     private Scanner console = new Scanner(System.in);
@@ -310,19 +311,32 @@ class Battle {
         defenderskill = Defending(defendchoice);
 
         //calculation for final damage
-            //get attack damage
-            int attackerdmg = Attacking(skillchoice);
-            //check the element advantage to determine final damage
-            finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
+        //get attack damage
+        int attackerdmg = Attacking(skillchoice);
+        //check the element advantage to determine final damage
+        finaldmg = ElementCheck(attackerskill, defenderskill, attackerdmg);
 
+        //calculate dodge
+        this.dodge = Skill.Dodge(defender.getLuck());
 
-        System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
-        Thread.sleep(500);
-        System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
-        defender.hp -= finaldmg;
-        Thread.sleep(500);
-        System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+        //if dodged
+        if (this.dodge == 1) {
 
+            System.out.println("***************\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            Thread.sleep(500);
+            System.out.println("***************\n" + "but " + defender.getCharname() + " DODGED the attack and take no damage\n***************");
+
+        } else {
+            //did not dodge
+
+            System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            Thread.sleep(500);
+            System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
+            defender.hp -= finaldmg;
+            Thread.sleep(500);
+            System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+
+        }
     }
 
     //attack only method
@@ -401,15 +415,29 @@ class Battle {
         //get attack damage
         int attackerdmg = Attacking(skillchoice);
         //check the element advantage to determine final damage
-        finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
+        finaldmg = ElementCheck(attackerskill, defenderskill, attackerdmg);
 
-        System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
-        Thread.sleep(500);
-        System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
-        defender.hp -= finaldmg;
-        Thread.sleep(500);
-        System.out.println("========================================\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n========================================");
-        Thread.sleep(500);
+        //calculate dodge
+        this.dodge = Skill.Dodge(defender.getLuck());
+
+        //if dodged
+        if (this.dodge == 1) {
+
+            System.out.println("***************\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            Thread.sleep(500);
+            System.out.println("***************\n" + "but " + defender.getCharname() + " DODGED the attack and take no damage\n***************");
+
+        } else {
+            //did not dodge
+
+            System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            Thread.sleep(500);
+            System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
+            defender.hp -= finaldmg;
+            Thread.sleep(500);
+            System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+
+        }
 
     }
 
@@ -495,16 +523,29 @@ class Battle {
         }
         //calculation for final damage
         //check the element advantage to determine final damage
-        finaldmg = ElementCheck(attackerskill,defenderskill,attackerdmg);
+        finaldmg = ElementCheck(attackerskill, defenderskill, attackerdmg);
 
-        Thread.sleep(500);
-        System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
-        Thread.sleep(500);
-        System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
-        defender.hp -= finaldmg;
-        Thread.sleep(500);
-        System.out.println("========================================\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n========================================");
+        //calculate dodge
+        this.dodge = Skill.Dodge(defender.getLuck());
 
+        //if dodged
+        if (this.dodge == 1) {
+
+            System.out.println("***************\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            Thread.sleep(500);
+            System.out.println("***************\n" + "but " + defender.getCharname() + " DODGED the attack and take no damage\n***************");
+
+        } else {
+            //did not dodge
+
+            System.out.println(attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            Thread.sleep(500);
+            System.out.println("but " + defender.getCharname() + " " + defenderskill + " the attack and take " + finaldmg + " damage");
+            defender.hp -= finaldmg;
+            Thread.sleep(500);
+            System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+
+        }
     }
 
     //announcer method
@@ -655,6 +696,12 @@ class Battle {
         }
 
         return finaldmg;
+    }
+
+    private static int Dodge(int charluk){
+
+        return 0;
+
     }
 
 }
