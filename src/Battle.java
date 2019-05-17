@@ -17,6 +17,7 @@ class Battle {
     private int finaldmg;
     private Character attacker = null,defender = null;
     private int dodge = 0;
+    private int turn = 0;
 
     //Scanner
     private Scanner console = new Scanner(System.in);
@@ -40,6 +41,8 @@ class Battle {
                     //player go first
                     whowin = FightingPVC(1);
                     Annoucer(whowin);
+                    //reset turn count
+                    turn = 0;
                     if (player1.hp <= 0) {
                         break;
                     }
@@ -52,6 +55,8 @@ class Battle {
                     //CPU go first
                     whowin = FightingPVC(2);
                     Annoucer(whowin);
+                    //reset turn count
+                    turn = 0;
                     if (player1.hp <= 0) {
                         break;
                     }
@@ -114,10 +119,14 @@ class Battle {
                     //player go first
                     whowin = FightingPVC(1);
                     Annoucer(whowin);
+                    //reset turn count
+                    turn = 0;
                 } else {
                     //CPU go first
                     whowin = FightingPVC(2);
                     Annoucer(whowin);
+                    //reset turn count
+                    turn = 0;
                 }
         }
 
@@ -139,12 +148,16 @@ class Battle {
             Thread.sleep(500);
             whowin = FightingPvP(1);
             Annoucer(whowin);
+            //reset turn count
+            turn = 0;
         } else {
             //player 2 go first
             System.out.println(player2.getCharname() + " go first!!");
             Thread.sleep(500);
             whowin = FightingPvP(2);
             Annoucer(whowin);
+            //reset turn count
+            turn = 0;
         }
     }
 
@@ -337,10 +350,14 @@ class Battle {
             System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
 
         }
+
+        //count turn
+        turn++;
+
     }
 
     //attack only method
-    private void AttackOnly(int player){
+    private void AttackOnly(int player) throws InterruptedException {
 
             if (player == 1) {
                 attacker = player1;
@@ -367,10 +384,24 @@ class Battle {
         //get attack damage
         int attackerdmg = Attacking(skillchoice);
 
+        //calculate dodge
+        this.dodge = Skill.Dodge(defender.getLuck());
 
-        System.out.println(attacker.getCharname() + " " + attacker.getOffend() + " " + defender.getCharname() + " for " + attackerdmg + " damage");
-        defender.hp -= attackerdmg;
-        System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+        //if dodged
+        if (this.dodge == 1) {
+
+            System.out.println("***************\n" + attacker.getCharname() + " " + attackerskill + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            Thread.sleep(500);
+            System.out.println("***************\n" + "but " + defender.getCharname() + " DODGED the attack and take no damage\n***************");
+
+        } else {
+            //if not dodge
+            System.out.println(attacker.getCharname() + " " + attacker.getOffend() + " " + defender.getCharname() + " for " + attackerdmg + " damage");
+            defender.hp -= attackerdmg;
+            System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
+        }
+        //count turn
+        turn++;
 
     }
 
@@ -546,6 +577,9 @@ class Battle {
             System.out.println("==============\n" + defender.getCharname() + " now has " + defender.hp + " hp" + "\n==============");
 
         }
+
+        //count turn
+        turn++;
     }
 
     //announcer method
